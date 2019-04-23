@@ -10,11 +10,11 @@
 		B38E6314226ED62300803A33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E6313226ED62300803A33 /* AppDelegate.swift */; };
 		B38E6316226ED62300803A33 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E6315226ED62300803A33 /* ViewController.swift */; };
 		B38E6319226ED62300803A33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B38E6317226ED62300803A33 /* Main.storyboard */; };
-		B38E631C226ED62300803A33 /* nationalClockSwift.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B38E631A226ED62300803A33 /* nationalClockSwift.xcdatamodeld */; };
 		B38E631E226ED62600803A33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B38E631D226ED62600803A33 /* Assets.xcassets */; };
 		B38E6321226ED62600803A33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B38E631F226ED62600803A33 /* LaunchScreen.storyboard */; };
 		B38E632C226ED62600803A33 /* nationalClockSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E632B226ED62600803A33 /* nationalClockSwiftTests.swift */; };
 		B38E6337226ED62600803A33 /* nationalClockSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E6336226ED62600803A33 /* nationalClockSwiftUITests.swift */; };
+		B38E6348226ED6AE00803A33 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E6346226ED6AE00803A33 /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +39,6 @@
 		B38E6313226ED62300803A33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B38E6315226ED62300803A33 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B38E6318226ED62300803A33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B38E631B226ED62300803A33 /* nationalClockSwift.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = nationalClockSwift.xcdatamodel; sourceTree = "<group>"; };
 		B38E631D226ED62600803A33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B38E6320226ED62600803A33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B38E6322226ED62600803A33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		B38E6332226ED62600803A33 /* nationalClockSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nationalClockSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B38E6336226ED62600803A33 /* nationalClockSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nationalClockSwiftUITests.swift; sourceTree = "<group>"; };
 		B38E6338226ED62600803A33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B38E6346226ED6AE00803A33 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +105,7 @@
 				B38E631D226ED62600803A33 /* Assets.xcassets */,
 				B38E631F226ED62600803A33 /* LaunchScreen.storyboard */,
 				B38E6322226ED62600803A33 /* Info.plist */,
-				B38E631A226ED62300803A33 /* nationalClockSwift.xcdatamodeld */,
+				B38E6346226ED6AE00803A33 /* TableViewCell.swift */,
 			);
 			path = nationalClockSwift;
 			sourceTree = "<group>";
@@ -259,7 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B38E631C226ED62300803A33 /* nationalClockSwift.xcdatamodeld in Sources */,
+				B38E6348226ED6AE00803A33 /* TableViewCell.swift in Sources */,
 				B38E6316226ED62300803A33 /* ViewController.swift in Sources */,
 				B38E6314226ED62300803A33 /* AppDelegate.swift in Sources */,
 			);
@@ -590,19 +590,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		B38E631A226ED62300803A33 /* nationalClockSwift.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				B38E631B226ED62300803A33 /* nationalClockSwift.xcdatamodel */,
-			);
-			currentVersion = B38E631B226ED62300803A33 /* nationalClockSwift.xcdatamodel */;
-			path = nationalClockSwift.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = B38E6308226ED62300803A33 /* Project object */;
 }
