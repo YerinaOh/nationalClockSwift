@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pu4-J2-ekZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pu4-J2-ekZ">
                                 <rect key="frame" x="0.0" y="132" width="414" height="730"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -30,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7V-rO-2iZ">
-                                                    <rect key="frame" x="332" y="0.0" width="62" height="43.5"/>
+                                                    <rect key="frame" x="312" y="0.0" width="62" height="43.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -44,17 +44,30 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGM-jE-elk">
+                                                    <rect key="frame" x="374" y="19" width="20" height="14"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="jm3-dC-m9b"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="1" green="0.4484260440572333" blue="0.3405278397136734" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="7jA-cp-9jO" firstAttribute="top" secondItem="Eid-tc-sZF" secondAttribute="top" id="GLA-bh-40V"/>
                                                 <constraint firstAttribute="bottom" secondItem="H7V-rO-2iZ" secondAttribute="bottom" id="IK3-Ul-78Z"/>
-                                                <constraint firstAttribute="trailing" secondItem="H7V-rO-2iZ" secondAttribute="trailing" constant="20" id="Iag-9N-9z9"/>
+                                                <constraint firstItem="WGM-jE-elk" firstAttribute="leading" secondItem="H7V-rO-2iZ" secondAttribute="trailing" id="Iag-9N-9z9"/>
                                                 <constraint firstItem="7jA-cp-9jO" firstAttribute="leading" secondItem="Eid-tc-sZF" secondAttribute="leading" constant="20" id="RBu-Ug-cZH"/>
+                                                <constraint firstAttribute="trailing" secondItem="WGM-jE-elk" secondAttribute="trailing" constant="20" id="Ugq-ZL-ImV"/>
                                                 <constraint firstItem="H7V-rO-2iZ" firstAttribute="top" secondItem="Eid-tc-sZF" secondAttribute="top" id="ipj-te-jqu"/>
+                                                <constraint firstItem="WGM-jE-elk" firstAttribute="top" secondItem="Eid-tc-sZF" secondAttribute="topMargin" constant="8" id="pZp-s0-UWu"/>
                                                 <constraint firstAttribute="bottom" secondItem="7jA-cp-9jO" secondAttribute="bottom" id="qhI-jW-yPQ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="WGM-jE-elk" secondAttribute="bottom" id="qtr-6m-tuu"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="cellDistance" destination="WGM-jE-elk" id="Mid-RM-iTF"/>
                                             <outlet property="cellNation" destination="7jA-cp-9jO" id="ZHk-46-sga"/>
                                             <outlet property="cellTitle" destination="H7V-rO-2iZ" id="s3l-p2-cGu"/>
                                         </connections>

@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
+    static let currentNation = "Asia/Seoul"
+    
     var savedNation = [[String : String]]()
     var shownNation = [[String : String]]()
     var timeZoneArray = [[String : String]]()
@@ -27,40 +29,51 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let rightButton = UIBarButtonItem(title: "편집", style: .plain, target: self, action:#selector(showEditing(sender:)))
+        self.navigationItem.rightBarButtonItem = rightButton
+        
         for tz in TimeZone.knownTimeZoneIdentifiers {
             let timeZone = TimeZone(identifier: tz)
-            var translatedName : String = timeZone?.localizedName(for: NSTimeZone.NameStyle.shortGeneric, locale: Locale(identifier: "ko_KR")) ?? ""
-            
+            var translatedName : String = timeZone?.localizedName(for: .shortGeneric, locale: Locale(identifier: "ko_KR")) ?? ""
+
             if translatedName.hasSuffix(" 시간"){
                 translatedName = String(translatedName.prefix(translatedName.count - 3))
             }
             
-            let date = DateFormatter()
-            date.locale = Locale(identifier: "ko_KR")
-            date.timeZone = timeZone
-//            date.timeZone = TimeZone(abbreviation: "KST")
-            date.dateFormat = "HH:mm"
-
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "ko_KR")
+            
+            //distance of Hour
+             dateFormatter.dateFormat = "MM/dd HH:mm" //immidiatly setting for calculate
+            let fromDate = dateFormatter.string(from: Date())
+            dateFormatter.timeZone = timeZone
+            let toDate = dateFormatter.string(from: Date())
+            
+            let components = Calendar.current.dateComponents([.hour], from: dateFormatter.date(from: fromDate) ?? Date(), to: dateFormatter.date(from: toDate) ?? Date())
+            
+             dateFormatter.dateFormat = "HH:mm"
+            //Saved Date
             if national.contains(tz) {
-                savedNation.append(["nation" : translatedName , "time": date.string(from: Date())])
+                savedNation.append(["nation" : translatedName , "time": dateFormatter.string(from: Date()), "distance": String(components.hour ?? 0)])
             }
-            timeZoneArray.append(["nation" : translatedName , "time": date.string(from: Date())])
+            //All of Date
+            timeZoneArray.append(["nation" : translatedName , "time": dateFormatter.string(from: Date()), "distance": String(components.hour ?? 0)])
+
+
+            
+            print(components)
         }
-        
-        tableView_.delegate = self
-        tableView_.dataSource = self
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
+
         
         searchDimView.isHidden = true
         searchTableView.isHidden = true
         tableViewHeightConstraint.constant = 0
         
         searchBar
-            .rx.text // RxCocoa의 Observable 속성
-            .orEmpty // 옵셔널이 아니도록 만듭니다.
-            .subscribe(onNext: { [unowned self] query in // 이 부분 덕분에 모든 새로운 값에 대한 알림을 받을 수 있습니다.
-                self.shownNation = self.timeZoneArray.filter{ $0["nation"]?.hasPrefix(query) ?? false} // 도시를 찾기 위한 “API 요청” 작업을 합니다.
+            .rx.text
+            .orEmpty
+            .subscribe(onNext: { [unowned self] query in
+                self.shownNation = self.timeZoneArray.filter{ $0["nation"]?.hasPrefix(query) ?? false}
                 self.tableViewHeightConstraint.constant = CGFloat(60 * self.shownNation.count)
                 self.searchTableView.reloadData() // 테이블 뷰를 다시 불러옵니다.
             })
@@ -71,8 +84,22 @@ class ViewController: UIViewController {
         searchBar.resignFirstResponder()
         searchDimView.isHidden = true
         searchTableView.isHidden = true
+        searchBar.text = ""
     }
     
+    @objc func showEditing(sender: UIBarButtonItem)
+    {
+        if(tableView_.isEditing == true)
+        {
+            tableView_.isEditing = false
+            self.navigationItem.rightBarButtonItem?.title = "편집"
+        }
+        else
+        {
+            tableView_.isEditing = true
+            self.navigationItem.rightBarButtonItem?.title = "완료"
+        }
+    }
 }
 
 extension ViewController: UITableViewDataSource {
@@ -85,7 +112,8 @@ extension ViewController: UITableViewDataSource {
             
             cell.cellNation.text = dict["nation"]
             cell.cellTitle.text = dict["time"]
-            cell.cellNation.textColor = UIColor.gray
+            cell.cellDistance.text = dict["distance"]
+            cell.cellNation.textColor = .gray
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell", for: indexPath as IndexPath) as! SearchTableViewCell
@@ -93,7 +121,7 @@ extension ViewController: UITableViewDataSource {
             let dict = shownNation[indexPath.row]
             
             cell.searchTitle?.text = dict["nation"]
-            cell.textLabel?.textColor = UIColor.blue
+            cell.textLabel?.textColor = .blue
             return cell
         }
     }
@@ -108,18 +136,50 @@ extension ViewController: UITableViewDataSource {
         return 60
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         let dict = shownNation[indexPath.row]
-        savedNation.append(dict)
-        tableView_.reloadData()
-        
-        searchBar.resignFirstResponder()
-        searchDimView.isHidden = true
-        searchTableView.isHidden = true
+        if tableView.tag == 1 {
+            let dict = shownNation[indexPath.row]
+            savedNation.append(dict)
+            tableView_.reloadData()
+            
+            searchBar.resignFirstResponder()
+            searchDimView.isHidden = true
+            searchTableView.isHidden = true
+        }
     }
 }
 
 extension ViewController: UITableViewDelegate{
 
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if tableView.tag == 0 {
+            return true
+        }
+        return false
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if tableView.tag == 0 {
+            return true
+        }
+        return false
+    }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        if tableView.tag == 0 {
+            let dict = savedNation[sourceIndexPath.row]
+            savedNation.remove(at: sourceIndexPath.row)
+            savedNation.insert(dict, at: destinationIndexPath.row)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if tableView.tag == 0 {
+                savedNation.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
+    }
 }
 
 extension ViewController: UISearchBarDelegate {

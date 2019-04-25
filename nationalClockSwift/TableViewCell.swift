@@ -12,6 +12,7 @@ class TableViewCell: UITableViewCell {
 
     @IBOutlet weak var cellNation: UILabel!
     @IBOutlet weak var cellTitle: UILabel!
+    @IBOutlet weak var cellDistance: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
