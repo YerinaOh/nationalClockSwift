@@ -69,6 +69,10 @@ class ViewController: UIViewController {
         searchTableView.isHidden = true
         tableViewHeightConstraint.constant = 0
         
+        searchTableView.rx.contentOffset.subscribe(onNext: { point in
+            print(point)
+        }).disposed(by: disposeBag)
+        
         searchBar
             .rx.text
             .orEmpty
